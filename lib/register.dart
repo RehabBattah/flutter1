@@ -13,29 +13,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String password = "";
   var key = GlobalKey<FormState>();
 
-  register() {
+  register(){
     key.currentState!.save();
-
-    FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((data) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Your Account Added Successfully")),
-          );
-          Navigator.of(context).pushNamed("home");
-        })
-        .catchError((err) {
-          // print("Sorry Something went Wrong ${err}");
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Sorry Something went Wrong ${err} ")),
-          );
-        });
+    
+    FirebaseAuth.
+    instance.
+    createUserWithEmailAndPassword(email: email, password: password)
+    .then((data){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Your Account Added Successfully"))
+      );
+      Navigator.of(context).pushNamed("login");
+    })
+    .catchError((err){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Sorry Something went Wrong ${err} "))
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Join Us")),
+      appBar: AppBar(
+        title: Text("Join Us"),
+      ),
       body: Form(
         key: key,
         child: Padding(
@@ -57,15 +59,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   });
                 },
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 50,),
               ElevatedButton(onPressed: register, child: Text("Register")),
-              SizedBox(height: 20),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).popAndPushNamed("login");
-                },
-                child: Text("Login"),
-              ),
+              SizedBox(height: 20,),
+              TextButton(onPressed: (){
+                Navigator.of(context).popAndPushNamed("login");
+              }, child: Text("Login"))
             ],
           ),
         ),

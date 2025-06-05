@@ -25,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.of(context).pushNamed("home");
     })
     .catchError((err){
+      // print("Sorry Something went Wrong ${err}");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Sorry Something went Wrong ${err} "))
       );
